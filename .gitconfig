@@ -1,0 +1,83 @@
+# Author: Paul Epperson, 2016                                                  #
+# ~/.gitconfig: User-specific (global) configuration file for git              #
+[user]                                                                         #
+	name = Paul Epperson                                                       #
+	email = peppers@ucsd.edu                                                   #
+                                                                               #
+################################################################################
+# Primary settings
+
+[advice]
+	# Standard
+	rmHints = false
+	statusHints = false
+	resolveConflict = false
+	implicitIdentity = false
+	commitBeforeMerge = false
+	# Expert
+	detachedHead = false
+	pushAlreadyExists = false
+	pushNonFastForward = false
+	pushNonFFCurrent = false
+	pushNonFFDefault = false
+	pushNonFFMatching = false
+	pushUpdateRejected = false
+[alias]
+	# Common
+	br = branch
+	ci = commit
+	cl = clone
+	co = checkout
+	cp = cherry-pick
+	df = diff
+	re = reset
+	st = stash
+	sa = stash apply
+	ss = stash save
+	#st = status
+	#lg = log -p
+
+	# Personal
+	# st = status (aliased as "status" in ~/.bash_aliases for "git status")
+	st = status -sb -uno
+	# lg = log (aliased as "log" in ~/.bash_alises for "git log")
+	lg = log --graph --relative-date --max-count=30 --pretty=format:'\
+		%Cred%Creset -%C(yellow)%h%d%Creset %s\
+		%Cgreen(%cr) %C(bold blue)<%an>%Creset'
+	undo = reset --soft HEAD^
+	lastcommit = log --numstat -1
+	prevtag = describe --tags --abbrev=0
+[core]
+	editor = vim
+	filemode = false
+#	whitespace = ???
+
+[commit]
+	template=~/.gitmessage.txt
+[http]	# Permanently accept web certificate
+	sslVerify = false
+[push]	# Push to remote repo with same name of current branch only
+	default = simple
+
+################################################################################
+# Colors:	normal, black, red, green, yellow, blue, magenta, cyan, white
+# Attributes:	bold, dim, ul, blink, reverse (at most one, turn off: prefix no)
+
+[color]
+	ui = auto
+	branch = auto
+	diff = auto
+	status = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
