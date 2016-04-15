@@ -1,0 +1,32 @@
+Start of Day
+  Update miscellaneous software with any in-house commands
+  Navigate to git repo, run:
+    git checkout master
+    git pull
+    git checkout <branch name>
+    git rebase master
+      fix issues
+      git rebase --continue
+
+Merge Request
+  Navigate to git repo, run:
+    git checkout <branch name>
+    option 1: git rebase -i HEAD~# (where # is the number of commits to rebase on)
+              map to pick/squash accordingly
+    option 2: git reset --soft HEAD~#
+              git add --patch
+              git commit -m
+    Follow Best Practices manual for schemes and merge request policy
+    if branch merged is no longer needed, git branch -d <branch name>
+
+Push to Remote (End of Day)
+  git checkout master
+  git pull (fix any issues)
+  git checkout <branch name>
+  git add --patch <modified files>
+  git checkout <modified files with unwanted "changes">
+  git commit (follow commit conventions)
+  git rebase master
+    fix issues
+    git rebase --continue
+  git push -f <name> <branch name>
