@@ -24,6 +24,8 @@ set nojoinspaces				" Turn off spaces after joined sentences
 set showcmd						" Turn on last command display
 set wildmenu					" Turn on command completion options display
 set autoread					" Turn on some file change detections
+set noeol                       " Turn off extra line at end of vim
+set clipboard=unnamed           " Turn on system keyboard copy/paste
 set fileformats=unix,dos,mac	" Turn on terminator acceptance for common OS's
 set backspace=indent,eol,start	" Turn on backspacing over formatting characters
 set showmatch					" Turn on view of opening brackets when closed
@@ -54,6 +56,14 @@ au BufRead,BufNewFile {*.{s,py},Makefile,.gitconfig,.vimrc} set tabstop=4
 " Save on focus loss, Reload on focus regained
 au FocusGained,BufEnter * :silent! !
 au FocusLost,WinLeave * :silent! w
+
+" Navigation shortcuts
+map G G$
+map all ggvG
+
+" For binary, hexidecimal formatting
+map hexify <ESC>:%!xxd
+map dehexify <ESC>:%!xxd -r
 
 " Move between multiple windows
 map <C-j> <C-W>j<C-W>
