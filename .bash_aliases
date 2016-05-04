@@ -1,5 +1,6 @@
 # visual formatting
-alias ls='clear; ls --color=auto'
+alias ls='ls --color=auto'
+alias lss='clear; ls'
 alias mount='mount |column -t'
 alias diff='colordiff'
 alias df='df -H'
@@ -35,7 +36,7 @@ alias gvim='sudo gvim'
 # miscellaneous
 alias calculator='bc -l'
 alias calc='calculator'
-alias showscripts='ls /usr/local.bin'
+alias showscripts='ls /usr/local/bin'
 alias gotoscripts='cd /usr/local/bin'
 
 # /usr/local/bin/*
