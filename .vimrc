@@ -6,7 +6,7 @@ set nocompatible				" Turn off vi restrictions (redundant)
 set noexrc						" Turn off insecure directory exceptions (old)
 set nomodeline					" Turn off insecure file exceptions (old)
 set showmode					" Turn on current edit mode display (redundant)
-set clipboard=unnamedplus		" Turn on system clipboard as vim clipboard
+set clipboard=unnamedplus		" Turn on copy/paste through system clipboard
 set nowrap						" Turn off line wrapping
 set number						" Turn on line numbering
 set laststatus=2				" Turn on status permanently
@@ -25,7 +25,6 @@ set showcmd						" Turn on last command display
 set wildmenu					" Turn on command completion options display
 set autoread					" Turn on some file change detections
 set noeol                       " Turn off extra line at end of vim
-set clipboard=unnamed           " Turn on system keyboard copy/paste
 set fileformats=unix,dos,mac	" Turn on terminator acceptance for common OS's
 set backspace=indent,eol,start	" Turn on backspacing over formatting characters
 set showmatch					" Turn on view of opening brackets when closed
