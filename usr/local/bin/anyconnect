@@ -1,0 +1,16 @@
+#!/bin/bash
+ANYCONNECT_VPNUI="/opt/cisco/anyconnect/bin/vpnui"
+
+# Error when not readable
+if [ ! -f "$ANYCONNECT_VPNUI" ]; then
+  echo File does not exist.
+  exit 1
+elif [ ! -x "$ANYCONNECT_VPNUI" ]; then
+  echo File not readable.
+  exit 1
+elif [ ! -s "$ANYCONNECT_VPNUI" ]; then
+  echo File is empty.
+  exit 1
+else
+  $ANYCONNECT_VPNUI
+fi
