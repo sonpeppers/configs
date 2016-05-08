@@ -36,6 +36,7 @@ alias gvim='sudo gvim'
 # miscellaneous
 alias calculator='bc -l'
 alias calc='calculator'
+alias scriptify='cd /usr/local/bin; vim'
 alias showscripts='ls /usr/local/bin'
 alias gotoscripts='cd /usr/local/bin'
 
