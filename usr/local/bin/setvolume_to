@@ -1,0 +1,42 @@
+#!/bin/bash
+DEFAULT_VOLUME=30
+VOLUME_IN=$1
+
+# Error when sudo
+if [ "$(whoami)" == "root" ]; then
+  echo "For some reason can\' set volume when root."
+fi
+
+# Default when no input
+if [ $# -eq 0 ]; then
+  echo Volume now set to default value 30.
+  `amixer -D pulse sset Master $DEFAULT_VOLUME%` > /dev/null 2>&1
+  exit
+fi
+
+# Error when not a number
+if [[ $((VOLUME_IN)) != $VOLUME_IN ]]; then
+  echo "$VOLUME_IN is not a number."
+  exit 1
+
+# VOLUME > 100
+elif [ "$VOLUME_IN" -gt 100 ]; then
+  echo Whoops, volume now set to default value 30.
+  `amixer -D pulse sset Master $DEFAULT_VOLUME%` > /dev/null 2>&1
+
+# 10 <= VOLUME <= 100
+elif [ "$VOLUME_IN" -ge 10 ] && [ "$VOLUME_IN" -le 100 ]; then 
+  echo "Volume now set to $VOLUME_IN."
+  `amixer -D pulse sset Master $VOLUME_IN%` > /dev/null 2>&1
+
+# 0 <= VOLUME < 10
+elif [ "$VOLUME_IN" -ge 0 ] && [ "$VOLUME_IN" -lt 10 ]; then
+  VOLUME_ADJUSTED=$(( VOLUME_IN * 10 ))
+  echo "Volume now set to $VOLUME_ADJUSTED."
+  `amixer -D pulse sset Master $VOLUME_ADJUSTED%` > /dev/null 2>&1
+
+# VOLUME < 0
+else # [ "$VOLUME_IN" -lt 0 ]
+  echo Negative volume not allowed.
+  exit 1
+fi

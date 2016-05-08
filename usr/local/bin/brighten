@@ -1,0 +1,37 @@
+#!/bin/bash
+DEFAULT_BRIGHTNESS=30
+BRIGHTNESS_IN=$1
+
+# Default when no input
+if [ $# -eq 0 ]; then
+  echo Brightness now set to default value 30.
+  xbacklight -set "$DEFAULT_BRIGHTNESS" > /dev/null 2>&1
+  exit
+fi
+
+# Error when not a number
+if [[ $((BRIGHTNESS_IN)) != $BRIGHTNESS_IN ]]; then
+  echo "$BRIGHTNESS_IN is not a number."
+  exit 1
+
+# Brightness > 100
+elif [ "$BRIGHTNESS_IN" -gt 100 ]; then
+  echo Whoops, brightness now set to default value 30.
+  xbacklight -set "$DEFAULT_BRIGHTNESS" > /dev/null 2>&1
+
+# 10 <= Brightness <= 100
+elif [ "$BRIGHTNESS_IN" -ge 10 ] && [ "$BRIGHTNESS_IN" -le 100 ]; then 
+  echo "Brightness now set to $BRIGHTNESS_IN"
+  xbacklight -set "$BRIGHTNESS_IN" > /dev/null 2>&1
+
+# 0 <= Brightness < 10
+elif [ "$BRIGHTNESS_IN" -ge 0 ] && [ "$BRIGHTNESS_IN" -lt 10 ]; then
+  BRIGHTNESS_ADJUSTED=$(( BRIGHTNESS_IN * 10 ))
+  echo "Brightness now set to $BRIGHTNESS_ADJUSTED"
+  xbacklight -set "$BRIGHTNESS_ADJUSTED" > /dev/null 2>&1
+
+# Brightness < 0
+else # [ "$BRIGHTNESS_IN" -lt 0 ]
+  echo Negative brightness not allowed.
+  exit 1
+fi

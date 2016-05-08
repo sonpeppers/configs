@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Exit when no input
+if [ $# -eq 0 ]; then
+  echo No alias to write. Exiting.
+  exit
+
+# Exit when not two input strings
+elif [ $# -ne 2 ]; then
+  echo Need alias name and aliased command as input. Exiting.
+  exit
+fi
+
+# No checks on input
+echo "$1='$2'" >> ~/.bash_aliases
