@@ -30,3 +30,10 @@ Push to Remote (End of Day)
     fix issues
     git rebase --continue
   git push -f <name> <branch name>
+
+Quickfixes
+git undo - 
+git quicksave - 
+git pom - git push origin master
+git fullcommit - git commit "quickcommit" && git push origin master
+git rollback1
