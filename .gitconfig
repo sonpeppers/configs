@@ -24,33 +24,127 @@
 	pushUpdateRejected = false
 [alias]
 	# Common
+	ap = add --patch
+	au = add --update
 	br = branch
 	ci = commit
-	cl = clone
 	co = checkout
 	cp = cherry-pick
-	df = diff
-	re = reset
-	st = stash
 	sa = stash apply
+	sd = stash drop
+#	sl = stash list
+	sp = stash pop
 	ss = stash save
-	#st = status
-	#lg = log -p
+	sw = stash show
+#	st = status
+#	lg = log -p
 
-	# Personal
-	# st = status (aliased as "status" in ~/.bash_aliases for "git status")
-	st = status -sb -uno
-	# lg = log (aliased as "log" in ~/.bash_alises for "git log")
+############### Still thinking
+
+#	http://www.jayway.com/2012/11/27/configure-git-like-a-boss/
+
+	# Flavored
+#	sl = ... http://thesimplesynthesis.com/post/git-stash-list
+#	slg = ... http://stackoverflow.com/questions/8727003
+	# Convient updates
+	cor = !git checkout $@ && git submodule update --recursive
+	update = !git pull --rebase --prune $@ && git submodule update --init --recursive
+
+	# git-prompt
+
+	# Branches
+	lc = !git lg
+	listcommits = !git lg
+	lb = "!git for-each-ref --sort='-authordate' --format='%(authordate)%09%(objectname:short)%09%(refname)' refs/heads | sed -e 's-refs/heads/--'"
+	listbranches = !git lb
+    branches = !git lb
+	cob = checkout -b
+	newb = !git cob
+	switchb = checkout
+	switch-branch-to = !git switchb
+
+	# Convenient temporary states
+	cm = !git add -A && git commit -m
+	save = !git add -A && git commit -m 'SAVEPOINT'
+	undosave = !git undomixed
+	undomerge = !git reset --hard ORIG_HEAD
+	quickcommit = !git cm "quickcommit"
+	quickcommitwithmessage = !git cm
+	minicommit = !git cm
+	wipcommit = !git cm "WIP"
+	news = !bash -c 'git log $1@{1}..$1@{0} "@"'
+	newc = commit
+
+	# 
+	sortdiff = !sh -c 'git diff "$@" | grep "^[+-]" | sort --key=1.2 | uniq -u -s1'
+	fa = log --diff-filter=A --summary
+	fd = log --diff-filterD --summary
+
+	# Better delete
+	destroy = reset HEAD --hard
+	delete-unrecoverable = reset HEAD --hard
+	delete-unreachable = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD^ --hard
+	delete = git !delete-unreachable
+	wipe = !delete
+
+	# Witchcraft
+	bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+	bdone = "!f() { git checkout ${1-master} && git update && git bclean ${1-master}; }; f"
+
+	# One time setup
+	rao = remote add origin
+	pom = push origin master
+	flood = push -u original --all
+	fullcommit = "!git quickcommit && git pom"
+
+	# Nice
+	st = status -sb
 	lg = log --graph --relative-date --max-count=30 --pretty=format:'\
 		%Cred%Creset -%C(yellow)%h%d%Creset %s\
-		%Cgreen(%cr) %C(bold blue)<%an>%Creset'
+		%Cgreen(%cr) %C(bold blue)<%an>%Creset'\
+		-10
+    alias = "!git config -l | grep alias | cut -c 7-"
+	aliases = "!git alias"
+	amend = commit --amend
+	ra = "!f() { git remote add $1 https://github.com/$2.git; }; f"
+	sba = "!f() { git subtree add --prefix $2 $1 master --squash; }; f"
+	caa = commit -a --amend -C HEAD
+	redo = !git quickcommit
 	undo = reset --soft HEAD^
+	undosoft = reset --soft HEAD^
+	undomixed = reset --mixed HEAD^
+	undohard = reset --hard HEAD^
+#	forget = !git untrack
+#	untrack = rm --cached --
+#	unforget =
+	uncommit = undo
+	recommit = commit --amend
+	unreset = !git undo
+	unresetsoft = !git undosoft
+	unresetmixed = !git undomixed
+	unresethard = !git undohard
+	unstash = stash apply
+	unstage = reset HEAD -- 
+	restash
 	lastcommit = log --numstat -1
-	prevtag = describe --tags --abbrev=0
+	lasttag = describe --tags --abbrev=0
+#	mergeontomaster =  git co master; git quickcommit; git co mergebranch; git merge -s ours master; git co master; git co mergebranch;
+
+[merge]
+	stat = true   #### ???
+[rerere]
+	enabled = true	#### autoupdate???
+[branch]
+	autosetupmerge = true ###???
+[push]
+	default = tracking #### ??
+[diff]
+	mnemonicprefix = true ####???
 [core]
 	editor = vim
+	excludesfile = '~/.gitignore' ### REALLY LIKE
 	filemode = false
-#	whitespace = ???
+	whitespace = trailing-space,space-before-tab ###??
 
 [commit]
 	template=~/.gitmessage.txt
@@ -58,6 +152,14 @@
 	sslVerify = false
 [push]	# Push to remote repo with same name of current branch only
 	default = simple
+
+################## STILL THINKING
+
+### .gitignore's
+#.bundle
+#db/*.sqlite3
+#log/*.log
+#tmp/
 
 ################################################################################
 # Colors:	normal, black, red, green, yellow, blue, magenta, cyan, white
