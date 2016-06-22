@@ -18,7 +18,7 @@ alias print='lp'
 # functional
 alias settings='unity-control-center'
 alias system='settings'
-alias battery='upower -d --dump | grep -E "to]\ full|percentage"'
+alias battery='upower -d --dump | grep -E "to\ full|percentage"; upower -i `upower -e | grep "BAT"` | grep state'
 
 # network
 alias test='sudo ping -c 5 -i 0.01 -q google.com'
