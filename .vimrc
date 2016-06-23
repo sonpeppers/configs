@@ -21,6 +21,7 @@ set ignorecase					" Turn off case checking in search
 set nohlsearch					" Turn off search highlighting
 set incsearch					" Turn on moving to best search before complete
 set nojoinspaces				" Turn off spaces after joined sentences
+set fo+=r           " Turn on asterisk-continuing in block comments
 set showcmd						" Turn on last command display
 set wildmenu					" Turn on command completion options display
 set autoread					" Turn on some file change detections
