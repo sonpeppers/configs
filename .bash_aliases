@@ -23,8 +23,9 @@ alias touchpadon='synclient TouchpadOff=0'
 alias touchpadoff='synclient TouchpadOff=1'
 
 # network
-alias test='sudo ping -c 5 -i 0.01 -q google.com'
-alias ping='sudo ping -c 5 -i 0.01 -q'
+alias testnet='sudo ping -c 5 -i 0.01 -q google.com'
+alias pingtest='testnet'
+alias sitetest='sudo ping -c 5 -i 0.01 -q'
 alias shownetwork='echo "Available networks:"; iwlist wlan0 scan | grep "ESSID" | sort | uniq; echo "Connected networks:"; nmcli dev status'
 
 # password no longer required
