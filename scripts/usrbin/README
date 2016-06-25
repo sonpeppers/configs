@@ -1,0 +1,5 @@
+# /usr/bin/
+# useful for xmonad (accessible from dmenu):
+# 	dim, brighten, mute, unmute, setvolume_to, touchpadon, touchpadoff
+# msc
+# 	open, checkConnection
