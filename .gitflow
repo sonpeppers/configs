@@ -1,3 +1,11 @@
+Push to remote master
+<from branch>
+git fetch origin
+git rebase origin/master
+git checkout master
+git merge test
+git push origin master
+
 Start of Day
   Update miscellaneous software with any in-house commands
   Navigate to git repo, run:
