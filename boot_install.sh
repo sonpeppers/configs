@@ -50,6 +50,7 @@
 #   ardupilot: firmware.us.ardupilot.org/Tools/APMPlanner
 #   anaconda: https://www.continuum.io/downloads
 #   atom: https://atom.io (.deb)
+#   0MQ: http://zeromq.org/intro:get-the-software
 
 ################################################################################
 # bare bones
@@ -66,6 +67,16 @@ sudo apt-get --assume-yes update
 
 # setup bare bone essentials
 sudo apt-get --assume-yes install vim-gnome git
+sudo apt-get --assume-yes install zsh csh ksh ash curl
+sudo apt-get --assume-yes install samba samba-common python-glade2 system-config-samba
+
+# takeout online search
+echo '[Desktop Entry]' >> disable_onlinesearch.desktop
+echo 'Name=Disable Search' >> disable_onlinesearch.desktop
+echo 'Exec=/bin/bash -c "gsettings set com.canonical.Unity.Lenses remote-content-search 'none'"' >> disable_onlinesearch.desktop
+echo 'Type=Application' >> disable_onlinesearch.desktop
+sudo mv disable_onlinesearch.desktop /etc/xdg/autostart
+sudo rm /usr/share/applications/ubuntu-amazon-default.desktop
 
 # .bashrc
 # .bash_aliases
@@ -95,6 +106,10 @@ gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/wa
 sudo apt-get --assume-yes install xmonad suckless-tools feh
 convert /usr/share/backgrounds/wallpaper.jpg -crop 2560x1500+0+0 /usr/share/backgrounds/wallpaper.jpg
 feh --bg-scale /usr/share/backgrounds/wallpaper.jpg
+echo 'gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/wallpaper.jpg' >> setBackground.sh
+echo 'feh --bg-scale /usr/share/backgrounds/wallpaper.jpg' >> setBackground.sh
+chmod 644 setBackground.sh
+sudo mv setBackground.sh /etc/profile.d
 
 # pip, anaconda, jupyter
 sudo apt-get --assume-yes install python3-pip
@@ -103,8 +118,13 @@ sudo bash Anaconda3-4.3.1-Linux-x86_64.sh -b -p '/opt/anaconda3'
 rm Anaconda-4.3.1-Linux-x86_64.sh
 pip3 install jupyter
 
-# npm, node
+# node, express, angular, mongodb
 sudo apt-get --assume-yes install npm
+npm config set prefix /opt
+sudo npm install mongodb -g
+sudo npm install express -g
+sudo npm install angular -g
+curl https://install.meteor.com | /bin/sh
 
 # java, eclipse
 # Note: use sudo update-alternatives --config javac to choose between versions
@@ -149,7 +169,7 @@ rm deb
 # ardupilot's apmplanner
 wget http://firmware.us.ardupilot.org/Tools/APMPlanner/apm_planner_2.0.24_xenial64.deb
 sudo dpkg -i apm_planner_2.0.24_xenial64.deb
-sudo apt-get -f install
+sudo apt-get -f --assume-yes install
 sudo dpkg -i apm_planner_2.0.24_xenial64.deb
 rm apm_planner_2.0.24_xenial64.deb
 sudo apt-get --purge remove modemmanager
@@ -172,8 +192,26 @@ mkdir -p ~/devel/eagle/cam \
 # Qt
 sudo apt-get --assume-yes install qt5-default qtdeclarative5-dev
 
-# tesseract, 0MQ, ... (?)
-# TODO
+# tesseract, 0MQ (?)
+sudo apt-get --assume-yes install tesseract-ocr
+sudo apt-get --assume-yes install libtool pkg-config build-essential autoconf uuid-dev e2fsprogs
+wget https://github.com/zeromq/libzmq/releases/download/v4.2.1/zeromq-4.2.1.tar.gz
+tar -xvf zeromq-4.2.1.tar.gz
+rm zeromq-4.2.1.tar.gz
+sudo mv zeromq-4.2.1 /opt
+pushd /opt/zeromq-4.2.1
+./configure
+make
+sudo make install
+popd
+sudo ldconfig
 
 # miscellaneous
-sudo apt-get --assume-yes install gparted gimp octave shutter
+sudo apt-get --assume-yes install gparted virtualbox
+sudo apt-get --assume-yes install octave
+sudo apt-get --assume-yes install gimp audacity
+sudo apt-get --assume-yes install shutter recordmydesktop gtk-recordmydesktop
+#skype
+sudo add-apt-repository "deb http://archive.canonical.com/ $(lsb_release -sc) partner"
+sudo dpkg --add-architecture i386
+sudo apt-get update && sudo apt-get install skype
