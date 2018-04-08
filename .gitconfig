@@ -1,8 +1,8 @@
 # Author: Paul Epperson, 2016                                                  #
 # ~/.gitconfig: User-specific (global) configuration file for git              #
 [user]                                                                         #
-	name = Paul Epperson                                                       #
-	email = peppers@ucsd.edu                                                   #
+	name = Paul Epperson                                                   #
+	email = pepperson00@gmail.com                                          #
                                                                                #
 ################################################################################
 # Primary settings
